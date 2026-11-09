@@ -11,6 +11,14 @@ Die Inhalte der Vorderseite sind mit minimalen Anpassungen wörtlich übernommen
 <img src="passierschein-a38-0.png" width=49% /> <img src="passierschein-a38-1.png" width=49% />
 
 
+## Blaues Formular
+
+Da der Antrag als Anlage das *Blaue Formular von Schalter I* verlangt, gibt es dieses ebenfalls: nach Rundschreiben B65, in Blaudruck, mit Angaben für die Hafenkommandantur.
+Auf der Rückseite liegt das Merkblatt der Hafenkommandantur mit Lageplan, Hafenordnung und abtrennbarer Liegeplatzquittung.
+
+<img src="blaues-formular-0.png" width=49% /> <img src="blaues-formular-1.png" width=49% />
+
+
 ## PDF erzeugen
 
 Mittels LuaLaTeX.
@@ -18,6 +26,7 @@ Folgende Hilfsfunktion wird bereitgestellt:
 
 ```sh
 make passierschein-a38.pdf
+make blaues-formular.pdf
 # oder
 latexmk -cd -f -lualatex -interaction=nonstopmode -synctex=1 --output-directory=__LaTeX-build.nosync -latexoption=--shell-escape passierschein-a38.tex
 ```
