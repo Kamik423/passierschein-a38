@@ -1,0 +1,334 @@
+% !TeX Program = lualatex
+
+\documentclass[a4paper]{article}
+\usepackage[left=2cm,right=2cm,top=1cm,bottom=1cm]{geometry}
+\usepackage{fontspec}
+\usepackage{libertinus}
+\renewcommand*\familydefault{\sfdefault}
+
+\usepackage{xcolor}
+\colorlet{textblue}{black!40!blue!50!white}
+\colorlet{bgblue}{black!40!blue!10!white}
+\colorlet{xblue}{black!40!blue!25!white}
+\colorlet{lineblue}{black!40!blue}
+
+\usepackage{pst-barcode}
+\usepackage{pifont}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathmorphing}
+
+\usepackage{enumitem}
+
+\usepackage{tabularx}
+\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{array}
+\arrayrulecolor{lineblue}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\usepackage{calc}
+\usepackage{everypage}
+\usepackage{lastpage}
+\usepackage{multicol}
+
+\def\documentid{F-BLAU-2k26}
+
+\AddEverypageHook{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \node [color=textblue, rotate=90, anchor=north] at ($(current page.west)+(10mm,0)$)
+        {\ttfamily\bfseries Originalpapier nur, wenn dieser Hinweis in Blaudruck erscheint.};
+        \node [rotate=90, anchor=north west, align=left] at ($(current page.south west)+(10mm,10mm)$)
+        {%
+            \hspace{1cm}\texttt{\documentid}
+            \\
+            \hspace{1cm}\texttt{Seite \thepage{} von \pageref{LastPage}}
+            \\
+            \psbarcode[transy=0.35,scalex=0.5,scaley=0.5]{\documentid-\thepage}{parse,format=square: version=18x18}{datamatrix}
+        };
+    \end{tikzpicture}%
+    %
+    \def\foldFirst{105mm}%
+    \def\foldSecond{210mm}%
+    \begin{tikzpicture}[remember picture, overlay]
+        \node (foldAA) at ($(current page.north west) + (5mm, - \foldFirst)$) {};
+        \node (foldAB) at ($(current page.north west) + (10mm, - \foldFirst)$) {};
+        \node (foldBA) at ($(current page.north west) + (5mm, - \foldSecond)$) {};
+        \node (foldBB) at ($(current page.north west) + (10mm, - \foldSecond)$) {};
+        \node (centerA) at ($(current page.west) + (5mm, 0)$) {};
+        \node (centerB) at ($(current page.west) + (10mm, 0)$) {};
+        \draw[-] (foldAA) -- (foldAB);
+        \draw[-] (foldBA) -- (foldBB);
+        \draw[-] (centerA) -- (centerB);
+    \end{tikzpicture}%
+}
+
+\parindent=0pt
+\pagestyle{empty}
+
+\usepackage[ngerman]{babel}
+
+\newcommand\sectitle[1]{\textbf{\Large\raisebox{0pt}[1.5\height][1.5\depth]{\vphantom{#1}}#1}}
+\newcommand\tftitle[1]{\textbf{#1}}
+\newcommand\tfnote[1]{\textit{#1}}
+\newcommand\X{\begin{tabular}{|>{\columncolor{white}}l|}\hline\raisebox{0pt}[1.5\height][1.5\depth]{\vphantom{Fg}\hspace{-0.29em}\color{xblue}X\hspace{-0.29em}}\\\hline\end{tabular}}
+\newcommand\digittf{\begin{tabular}{|>{\columncolor{white}}l|}\hline\raisebox{0pt}[1.5\height][1.5\depth]{\vphantom{Fg}}\\\hline\end{tabular}}
+\newcommand\widetf{\begin{tabular}{|>{\columncolor{white}}l|}\hline\raisebox{0pt}[1.5\height][1.5\depth]{\vphantom{Fg}}\hspace*{\linewidth - 1.5em}\\\hline\end{tabular}}
+\newcommand\Xsub[1]{$\underset{#1}{\X}$}
+
+\newcounter{ansnum}
+\newcommand\ans{\refstepcounter{ansnum}\arabic{ansnum}}
+
+\begin{document}%
+\begin{tikzpicture}[remember picture, overlay]
+    \node [rotate=90, anchor=south] at ($(current page.east)+(-15mm,6.75cm)$)
+    {\ttfamily\bfseries\footnotesize Dieses Formular ist auch auf grünem Papier blau.};
+    \node [anchor=south west] at ($(current page.south west)+(0,5mm)$)
+    {%
+        \hspace*{1cm + 0.33ex}%
+        \ttfamily%
+        CC BY-SA 4.0
+        \cdot{}
+        Merkblatt der Hafenkommandantur umseitig
+    };
+\end{tikzpicture}%
+Blaues Formular zur Beantragung des Antragsformulars für den
+
+\begin{Huge}
+    Passierschein A38
+\end{Huge}
+
+~
+
+\begin{tabularx}{\linewidth}{@{}Xr@{}}
+    \tftitle{Laufende Nummer} \tfnote{(Laufende Nummer des A38 rückwärts)}                           & Ausgabestelle: Schalter I         \\
+    \digittf\digittf\digittf\digittf\digittf\digittf\digittf\digittf\digittf\digittf\digittf\digittf & nach Rundschreiben B65
+\end{tabularx}
+
+\vspace*{3ex}
+
+\hspace*{-1cm}\begin{tabularx}{\linewidth + 1cm}{@{} R{7.5mm} @{\hspace*{2.5mm}}| >{\columncolor{bgblue}}X |@{}}
+    \cmidrule{2-2}
+         & \sectitle{Angaben zum Antrag auf den Antrag}                                                  \\
+    \ans & \tftitle{Nennen Sie Ihre Lieblingsfarbe.}                                                     \\
+         & \tfnote{Andere Antworten als „Blau“ werden an Schalter XII, Stiege B, Korridor J verwiesen.}  \\
+         & \widetf                                                                                       \\
+         &                                                                                               \\
+    \ans & \tftitle{Wie viele Schalter haben Sie heute bereits aufgesucht?}                             \\
+         & \tfnote{Bitte in römischen Ziffern. Schalter I zählt nicht, da Sie gerade dort stehen.}       \\
+         & \digittf\digittf\digittf\digittf\digittf\digittf                                              \\
+         &                                                                                               \\
+    \ans & \tftitle{Wie lange warten Sie bereits?}                                                       \\
+         & \X{} Minuten \qquad \X{} Stunden \qquad \X{} Mondphasen \qquad \X{} Ich bin hier aufgewachsen. \\
+         &                                                                                               \\
+    \ans & \tftitle{Wie bereitwillig steigen Sie Treppen?}                                               \\
+         & Ungern \Xsub{1} \Xsub{2} \Xsub{3} \Xsub{4} \Xsub{5} Bis in den sechsten Stock                \\
+         &                                                                                               \\
+    \cmidrule{2-2}
+         & \sectitle{Angaben für die Hafenkommandantur}                                                  \\
+    \ans & \tftitle{Wie gedenken Sie, den Hafen zu erreichen?}                                           \\
+         & \X{} Galeere \qquad \X{} Floß \qquad \X{} Fass \qquad \X{} Schwimmend \tfnote{(Anlage N beifügen)} \\
+         &                                                                                               \\
+    \ans & \tftitle{Führen Sie Ladung mit, die schwerer ist als Ihr Wasserfahrzeug?}                     \\
+         & \X{} Nein \qquad \X{} Ja, einen Stein \qquad \X{} Ja, mehrere Steine                          \\
+         &                                                                                               \\
+    \ans & \tftitle{Gewünschter Liegeplatz:}                                                             \\
+         & \tfnote{Liegeplätze werden in der Reihenfolge des Ablegens vergeben.}                        \\
+         & \digittf\digittf\digittf                                                                      \\
+         &                                                                                               \\
+    \ans & \tftitle{Tragen Sie den Wasserstand zum Zeitpunkt des Ausfüllens ein.}                        \\
+         & \tfnote{Bei Ebbe bitte zwei Zeilen tiefer eintragen.}                                         \\
+         & \widetf                                                                                       \\
+         &                                                                                               \\
+    \ans & \tftitle{Ist Ihr Wasserfahrzeug in den letzten 14 Monaten:}                                   \\
+         & \tfnote{Nur Einfachantwort möglich.}                                                          \\
+         & \X{} gesunken                                                                                 \\
+         & \X{} versenkt worden                                                                          \\
+         & \X{} beides, aber nicht in dieser Reihenfolge                                                 \\
+         & \X{} ohne Passierschein A38 in See gestochen                                                  \\
+         &                                                                                               \\
+    \cmidrule{2-2}
+\end{tabularx}
+
+\begin{multicols}{3}
+    \tftitle{Hinweise}\\
+    \begin{footnotesize}
+        Dieses Formular ist nur zusammen mit dem Passierschein A38 gültig. Der Passierschein A38 wird nur gegen Vorlage dieses Formulars ausgestellt.
+
+        Das Formular gilt als blau, solange es nicht nass wird.
+
+        Bei Farbfehlsichtigkeit wenden Sie sich bitte an Schalter Grün.
+    \end{footnotesize}
+
+    \vspace*{2.5ex}\tftitle{Stempel des Hafens:}\par
+    \begin{tabularx}{\linewidth}{|Y|}
+        \midrule
+        \\
+        \tfnote{(\ans{} Nur bei Flut stempeln.)} \\
+        \\
+        \midrule
+    \end{tabularx}
+
+    \columnbreak
+
+    \tftitle{Bitte fügen Sie folgende Anlagen bei:}
+    \begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+        \item Passierschein A38 \tfnote{(siehe dort)}.
+        \item Bescheinigung über das Nichtvorliegen des rosa Formulars.
+        \item Liegeplatzquittung der Hafenkommandantur \tfnote{(umseitig)}.
+        \item Bestätigung des Pförtners, dass die antragstellende Person das Gebäude betreten hat
+        \item Wartemarke des Erdgeschosses, ungeknickt
+    \end{itemize}
+
+    \begin{tabularx}{\linewidth}{@{}lX@{}}
+        \ans{} \tftitle{Daumenabdruck}
+         &
+        \tikz \draw[dashed,lineblue] (0,0.6) ellipse (0.45 and 0.65);
+    \end{tabularx}
+
+    \columnbreak
+
+    \begin{itemize}[noitemsep]
+        \item[\ans{} \X] Ich bestätige, dass dieses Formular blau ist.
+        \item[\ans{} \X] Ich habe Rundschreiben B65 nicht gelesen. \tfnote{(Pflichtfeld)}
+        \item[\ans{} \X] Seemannsgarn?
+            \\[4ex]
+        \item[\ans{} \phantom{\X}] \dotfill\\
+            Unterschrift (blau)
+            \smash{
+                \begin{tikzpicture}[remember picture, overlay]
+                    \node [
+                        draw,
+                        dashed,
+                        lineblue,
+                        ellipse,
+                        align=center,
+                        minimum width=6cm,
+                        minimum height=3cm,
+                        inner sep=0pt,
+                        rotate=90
+                    ]
+                    at ($(current page.east)+(5mm,-11cm)$) {
+                        \color{black} \ans{} \\
+                        \color{black} Hier zum Schiffchen falten.
+                        \\
+                        \\
+                        \\
+                        \\
+                        \\
+                        \\
+                    };
+                \end{tikzpicture}
+            }
+    \end{itemize}%
+\end{multicols}%
+\clearpage%
+
+\begin{tikzpicture}[remember picture, overlay]
+    \node [anchor=south west] at ($(current page.south west)+(0,5mm)$)
+    {%
+        \hspace*{1cm + 0.33ex}%
+        \ttfamily%
+        Hafenkommandantur
+        \cdot{}
+        Geöffnet bei Flut
+        \cdot{}
+        Bei Ebbe bitte unten klingeln
+    };
+\end{tikzpicture}%
+Merkblatt der
+
+\begin{Huge}
+    Hafenkommandantur
+\end{Huge}
+
+~
+
+\begin{tabularx}{\linewidth}{@{}Xr@{}}
+    \tftitle{Für Antragstellende des Passierscheins A38,} & zuständig für alles,  \\
+    \tftitle{die den Weg zum Hafen suchen.}               & was nass werden kann
+\end{tabularx}
+
+\vspace*{3ex}
+
+\hspace*{-1cm}\begin{tabularx}{\linewidth + 1cm}{@{} R{7.5mm} @{\hspace*{2.5mm}}| >{\columncolor{bgblue}}X |@{}}
+    \cmidrule{2-2}
+     & \sectitle{Lageplan}                                                                    \\
+     & \tfnote{Nicht maßstabsgetreu. Wasser nicht wassergetreu.}                              \\
+     & \begin{tikzpicture}[x=1cm,y=1cm, font=\footnotesize]
+           % Stadt
+           \fill[white] (0,0) rectangle (15.4,6.4);
+           \draw[lineblue] (0,0) rectangle (15.4,6.4);
+           \draw[lineblue, fill=bgblue] (0.6,3.6) rectangle (4.4,5.8);
+           \node[align=center] at (2.5,4.7) {Haus, das\\Verrückte macht};
+           \node[anchor=north west, align=left] at (0.6,3.5) {\tfnote{Sie sind vermutlich}\\\tfnote{noch hier.}};
+           % Schalter
+           \foreach \i/\x in {I/5.4,XII/6.6} {
+               \draw[lineblue, fill=white] (\x,4.9) rectangle ++(0.9,0.6);
+               \node at (\x+0.45,5.2) {\i};
+           }
+           % Wasser
+           \fill[bgblue] (9.4,0) .. controls (9.0,2) and (10.4,3.5) .. (9.8,6.4) -- (15.4,6.4) -- (15.4,0) -- cycle;
+           \foreach \y in {0.8,1.8,...,5.8} {
+               \draw[lineblue, decorate, decoration={snake, amplitude=0.6mm, segment length=4mm}] (11.2,\y) -- (14.8,\y);
+           }
+           \draw[lineblue] (0,0) rectangle (15.4,6.4);
+           \node[align=center, fill=bgblue] at (13,3.3) {\textbf{Hafen}\\\tfnote{immer da, wo Wasser ist}};
+           % Mole und Kommandantur
+           \draw[lineblue, fill=white] (9.4,1.1) rectangle (11.4,1.5);
+           \draw[lineblue, fill=white] (8.0,0.6) rectangle (9.5,1.9);
+           \node[align=center] at (8.75,1.25) {\scriptsize Kom-\\[-2pt]\scriptsize mandantur};
+           % Weg
+           \draw[thick, dashed, black, ->, rounded corners=3mm] (4.4,4.2) -- (5.85,4.2) -- (5.85,4.85);
+           \draw[thick, dashed, black, ->] (6.3,5.2) -- (6.58,5.2);
+           \draw[thick, dashed, black, ->, rounded corners=3mm] (7.05,4.9) -- (7.05,3.6) -- (5.2,3.6) -- (5.2,2.4) -- (8.75,2.4) -- (8.75,1.95);
+           \node[anchor=south, font=\scriptsize\itshape] at (7.0,2.4) {Bitte nicht abkürzen};
+           \node[anchor=west, align=left] at (0.4,1.6) {\tfnote{Empfohlener Weg.}\\\tfnote{Kürzere Wege sind}\\\tfnote{nicht genehmigt.}};
+       \end{tikzpicture}                                                                      \\
+     &                                                                                        \\
+    \cmidrule{2-2}
+     & \sectitle{Hafenordnung (Auszug)}                                                       \\
+     & \begin{enumerate}[label=\S\,\arabic*,leftmargin=2.2em,itemsep=0.6ex]
+           \item Der Hafen befindet sich unterhalb der Stadt. Wer ihn oberhalb der Stadt antrifft, meldet dies unverzüglich der Hafenkommandantur.
+           \item Das Anlegen ist nur mit gültigem Passierschein A38 gestattet. Das Ablegen ist nur ohne gültigen Passierschein A38 gestattet, da dieser beim Anlegen einbehalten wird.
+           \item Galeeren werden nach Rudern abgerechnet. Floße nach Stämmen. Fässer nach Inhalt.
+           \item Wer im Hafenbecken schwimmt, gilt als Wasserfahrzeug und benötigt einen Liegeplatz.
+           \item Steine, Hinkelsteine und vergleichbare Ladung sind beim Zoll anzumelden und dürfen nicht zur Abfertigung anderer Wasserfahrzeuge verwendet werden.
+           \item Die Hafenkommandantur haftet nicht für Gezeiten.
+       \end{enumerate}                                                                        \\
+    \cmidrule{2-2}
+\end{tabularx}
+
+\vfill
+
+\begin{tikzpicture}
+    \draw[dashed, lineblue] (-1cm,0) -- (\linewidth,0);
+    \node[fill=white, inner sep=1pt] at (-0.6cm,0) {\ding{34}};
+    \node[anchor=south east, font=\footnotesize\itshape] at (\linewidth,0) {Hier abtrennen und dem blauen Formular beifügen.};
+\end{tikzpicture}
+
+\vspace*{1ex}
+
+\begin{tabularx}{\linewidth}{@{}Xr@{}}
+    \textbf{\large Liegeplatzquittung}                     & \tftitle{Liegeplatz}                \\
+    \tfnote{Gültig von Ankunft bis zur nächsten Ebbe.}     & \digittf\digittf\digittf            \\[1ex]
+    \tftitle{Name des Wasserfahrzeugs}                     & \tftitle{Anzahl Ruder}              \\
+    \begin{tabular}{|>{\columncolor{white}}l|}\hline\raisebox{0pt}[1.5\height][1.5\depth]{\vphantom{Fg}}\hspace*{9cm}\\\hline\end{tabular}
+                                                           & \digittf\digittf\digittf
+\end{tabularx}
+
+\vspace*{2ex}
+\begin{center}
+    \tfnote{(Der Platz unter dieser Zeile ist für Spritzwasser vorgesehen.)}
+\end{center}
+\vspace*{8ex}
+
+\end{document}
